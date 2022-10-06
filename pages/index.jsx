@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import Hello from "../components/Hello/index";
 
 const RootPage = () => {
   const router = useRouter();
@@ -14,7 +15,7 @@ const RootPage = () => {
   };
   return (
     <div>
-      <h1>It works!</h1>
+      <Hello></Hello>
       <Link href="about" scroll={false}>
         About
       </Link>
