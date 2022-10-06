@@ -1,5 +1,12 @@
+import AppHead from "../components/AppHead";
+
 const AboutPage = () => {
-  return <h1>About</h1>;
+  return (
+    <>
+      <AppHead title="ABOUT" description={`About`}></AppHead>
+      <h1>About</h1>
+    </>
+  );
 };
 
 export default AboutPage;

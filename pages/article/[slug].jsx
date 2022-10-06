@@ -1,10 +1,17 @@
+import AppHead from "../../components/AppHead";
+
 const ArticlePage = (props) => {
   return (
-    <div>
+    <>
+      <AppHead
+        title={props.title}
+        description={props.description}
+        slug={props.slug}
+      ></AppHead>
       <h1>Article Page</h1>
       <h2>{props.title}</h2>
       <p>{props.body}</p>
-    </div>
+    </>
   );
 };
 

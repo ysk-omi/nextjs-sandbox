@@ -1,26 +1,31 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import AppHead from "../components/AppHead/index";
 import Hello from "../components/Hello/index";
 
 const RootPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.prefetch("/article/hoge");
+    router.prefetch("/article/2020-purgecss-2");
   }, []);
 
   const handleClick = (event) => {
-    router.push("/article/hoge");
+    router.push("/article/2020-purgecss-2");
   };
   return (
-    <div>
+    <>
+      <AppHead
+        title={`TOP`}
+        description={`his is my Next.js SandBox`}
+      ></AppHead>
       <Hello></Hello>
       <Link href="about" scroll={false}>
         About
       </Link>
       <button onClick={handleClick}>Article</button>
-    </div>
+    </>
   );
 };
 
