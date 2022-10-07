@@ -5,7 +5,7 @@ import Link from "next/link";
 import path from "path";
 import styles from "../../styles/BlogList.module.scss";
 
-const BlogListPage = (props) => {
+const BlogPage = (props) => {
   return (
     <>
       <Head></Head>
@@ -22,6 +22,18 @@ const BlogListPage = (props) => {
       </ul>
     </>
   );
+};
+
+export const getStaticPages = () => {
+  const dataDir = "data";
+  const fileName = fs.readdirSync(dataDir);
+  const paths = fileNames.map((fileName) => {
+    return {
+      params: {
+        slug: fileName.replace(/\.md$/, ""),
+      },
+    };
+  });
 };
 
 export const getStaticProps = () => {
@@ -48,4 +60,4 @@ export const getStaticProps = () => {
   };
 };
 
-export default BlogListPage;
+export default BlogPage;

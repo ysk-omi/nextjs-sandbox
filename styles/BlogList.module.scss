@@ -1,0 +1,13 @@
+@use '~/styles/_variables' as *;
+@use '~/styles/_mixin' as *;
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list li time {
+  margin-left: 16px;
+  color: #718096;
+}
