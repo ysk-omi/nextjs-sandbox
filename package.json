@@ -28,6 +28,8 @@
     "sass": "^1.55.0"
   },
   "dependencies": {
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "react-markdown": "^8.0.3",
+    "remark-breaks": "^3.0.2"
   }
 }

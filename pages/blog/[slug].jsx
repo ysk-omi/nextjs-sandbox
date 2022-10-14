@@ -1,32 +1,31 @@
 import fs from "fs";
 import matter from "gray-matter";
-import Head from "next/head";
-import Link from "next/link";
 import path from "path";
-import styles from "../../styles/BlogList.module.scss";
+import Head from "next/head";
+import ReactMarkdown from "react-markdown";
+import breaks from "remark-breaks";
 
-const BlogPage = (props) => {
+const BlogPage = ({ post }) => {
   return (
     <>
-      <Head></Head>
-      <h2>Blog</h2>
-      <ul className={styles.list}>
-        {props.posts.map((post, index) => (
-          <li key={index}>
-            <Link key={index} href={`/blog/${post.slug}`}>
-              {post.title}
-            </Link>
-            <time date-time={post.date}>{post.date}</time>
-          </li>
-        ))}
-      </ul>
+      <Head>
+        <title>{post.title} | My WebSite</title>
+      </Head>
+      <article>
+        <header>
+          <h2>{post.title}</h2>
+          <span>
+            <time dateTime={post.date}>{post.date}</time>
+          </span>
+          <ReactMarkdown remarkPlugins={[breaks]}>{post.body}</ReactMarkdown>
+        </header>
+      </article>
     </>
   );
 };
 
-export const getStaticPages = () => {
-  const dataDir = "data";
-  const fileName = fs.readdirSync(dataDir);
+export const getStaticPaths = () => {
+  const fileNames = fs.readdirSync("data");
   const paths = fileNames.map((fileName) => {
     return {
       params: {
@@ -34,29 +33,22 @@ export const getStaticPages = () => {
       },
     };
   });
+  return {
+    paths,
+    fallback: false,
+  };
 };
 
-export const getStaticProps = () => {
-  const dataDir = "data";
-  const fileName = fs.readdirSync(dataDir);
-  const posts = fileName
-    .map((fileName) => {
-      const postPath = path.join(dataDir, fileName);
-      const file = matter.read(postPath);
-      return {
-        slug: fileName.replace(/\.md$/, ""),
-        title: file.data.title,
-        date: file.data.date,
-      };
-    })
-    .sort((a, b) => {
-      return new Date(b.date) - new Date(a.date);
-    });
-
+export const getStaticProps = ({ params }) => {
+  const postPath = path.join("data", `${params.slug}.md`);
+  const file = matter.read(postPath);
+  const post = {
+    title: file.data.title,
+    date: file.data.date,
+    body: file.content,
+  };
   return {
-    props: {
-      posts,
-    },
+    props: { post },
   };
 };
 
